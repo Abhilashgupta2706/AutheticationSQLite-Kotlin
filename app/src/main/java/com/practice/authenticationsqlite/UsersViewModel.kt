@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 
 class UsersViewModel(private val dao: UserDaoClass) : ViewModel() {
 
-    private val users = dao.getAllUsers()
+    val users = dao.getAllUsers()
 
     fun addUser(userEntityClass: UserEntityClass) = viewModelScope.launch {
         dao.addUser(userEntityClass)

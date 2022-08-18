@@ -29,7 +29,7 @@ abstract class UserDatabaseClass : RoomDatabase() {
                     context.applicationContext,
                     UserDatabaseClass::class.java,
                     "users_authentication_database"
-                ).build()
+                ).allowMainThreadQueries().build()
                 INSTANCE = instance
                 return instance
             }
