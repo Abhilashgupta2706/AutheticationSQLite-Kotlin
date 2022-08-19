@@ -4,6 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 @Database(entities = [UserEntityClass::class], version = 1, exportSchema = false)
 abstract class UserDatabaseClass : RoomDatabase() {
@@ -29,11 +33,14 @@ abstract class UserDatabaseClass : RoomDatabase() {
                     context.applicationContext,
                     UserDatabaseClass::class.java,
                     "users_authentication_database"
-                ).allowMainThreadQueries().build()
+                ).createFromAsset("database/database.db")
+                    .allowMainThreadQueries().build()
                 INSTANCE = instance
                 return instance
             }
         }
+
+        val PREPOPULATE_DATA = UserEntityClass(null, "admin", "admin")
     }
 
 }
